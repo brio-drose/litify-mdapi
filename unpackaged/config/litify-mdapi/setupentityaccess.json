@@ -1,0 +1,24 @@
+{
+    "allOrNone": true,
+    "compositeRequest": [
+        {
+            "method": "GET",
+            "url": "/services/data/v46.0/query/?q=SELECT+Id+FROM+PermissionSet+WHERE+Name+=+'LitifyMDAPI'",
+            "referenceId": "permSet"
+        },
+        {
+            "method": "GET",
+            "url": "/services/data/v46.0/query/?q=SELECT+Id+FROM+ConnectedApplication+WHERE+Name+=+'LitifyMDAPI'",
+            "referenceId": "conApp"
+        },
+        {
+            "method": "POST",
+            "url": "/services/data/v46.0/sobjects/SetupEntityAccess",
+            "referenceId": "setupEntityAccess",
+            "body": {
+                "ParentId": "@{permSet.records[0].Id}",
+                "SetupEntityId": "@{conApp.records[0].Id}"
+            }
+        }
+    ]
+}

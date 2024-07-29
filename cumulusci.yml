@@ -1,0 +1,145 @@
+minimum_cumulusci_version: '3.84.2'
+project:
+    name: Litify
+    dependencies:
+        - version_id: 04t1T0000003w1I
+    package:
+        name: Litify
+        api_version: '61.0'
+    git:
+        default_branch: 'main'
+        prefix_feature: 'feature/'
+        prefix_beta: 'beta/'
+        prefix_release: 'release/'
+    source_format: sfdx
+
+### Tasks ######################################################################
+tasks:
+    deploy_connected_app:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        options:
+            path: unpackaged/config/litify-mdapi/pre
+            transforms:
+                - transform: find_replace
+                  options:
+                      patterns:
+                          - find: DOMAIN
+                            inject_org_url: True
+    
+    retrieve_connected_app:
+        description: Retrieve Connected App
+        class_path: cumulusci.tasks.sfdx.SFDXOrgTask
+        group: LitifyMDAPI
+        options:
+            command: "force:mdapi:retrieve -k unpackaged/config/litify-mdapi/package.xml -r unpackaged/config/litify-mdapi/temp --json --zipfilename connectedApp.zip"
+
+    unzip_connected_app:
+        description: Unzip Connected App
+        class_path: cumulusci.tasks.command.Command
+        group: LitifyMDAPI
+        options:
+            command: "unzip -o unpackaged/config/litify-mdapi/temp/connectedApp.zip -d unpackaged/config/litify-mdapi/temp && rm -R unpackaged/config/litify-mdapi/temp/connectedApp.zip"
+
+    convert_connected_app:
+        description: Convert Connected App to source format
+        class_path: cumulusci.tasks.sfdx.SFDXBaseTask
+        group: LitifyMDAPI
+        options:
+            command: "force:mdapi:convert -r unpackaged/config/litify-mdapi/temp/unpackaged/connectedApps -d unpackaged/config/litify-mdapi/temp/"
+
+    move_connected_app:
+        description: Move Converted Connected App to src directory
+        class_path: cumulusci.tasks.command.Command
+        group: LitifyMDAPI
+        options:
+            command: "mv unpackaged/config/litify-mdapi/temp/main/default/connectedApps unpackaged/config/litify-mdapi/src && rm -R unpackaged/config/litify-mdapi/temp"
+
+    extract_consumer_key:
+        description: Custom task to write Consumer Key to a env variable
+        class_path: tasks.extract_consumer_key.ExtractConsumerKeyAndSetEnv
+        group: "LitifyMDAPI"
+        options:
+            mypath: "unpackaged/config/litify-mdapi/src/connectedApps/LitifyMDAPI.connectedApp-meta.xml"
+
+    update_consumer_key:
+        description: Update Consumer Key
+        class_path: cumulusci.tasks.command.Command
+        group: LitifyMDAPI
+        options:
+            command: "bash -c 'source unpackaged/config/litify-mdapi/scripts/update_consumer_key.sh'"
+    
+    deploy_litify_mdapi:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        options:
+            path: unpackaged/config/litify-mdapi/src
+            transforms:
+                - transform: find_replace
+                  options:
+                      patterns:
+                          - find: DOMAIN
+                            inject_org_url: True
+                          - find: CONSUMER_KEY
+                            replace_env: CONSUMER_KEY
+
+    assign_litify_permission_sets:
+        class_path: cumulusci.tasks.salesforce.users.permsets.AssignPermissionSets
+        group: "LitifyMDAPI"
+        options:
+            api_names: LitifyMDAPI
+    
+    grant_connected_app:
+        group: "LitifyMDAPI"
+        description: POSTs json files to the Composite REST API endpoint.
+        class_path: cumulusci.tasks.salesforce.composite.CompositeApi
+        options:
+            data_files:
+                - "unpackaged/config/litify-mdapi/setupentityaccess.json"
+
+    edit_and_save_named_credential:
+        description: "Run the named_credential.robot script"
+        class_path: cumulusci.tasks.robotframework.Robot                
+        options:
+            suites: robot/eLaw/tests/edit_and_save_named_credential.robot
+            outputdir: robot/eLaw/results
+
+    load_sample_data:
+        options:
+            drop_missing_schema: True
+
+### Flows ######################################################################
+flows:
+
+    config_dev:
+        steps:
+            3.1:
+                flow: configure_litify_mdapi
+    
+    config_apextest:
+        steps:
+            3.1:
+                flow: configure_litify_mdapi
+                
+    configure_litify_mdapi:
+        description: Configure Litify MDAPI
+        group: LitifyMDAPI
+        steps:
+            1.1:
+                task: deploy_connected_app
+            1.2:
+                task: retrieve_connected_app
+            2:
+                task: unzip_connected_app
+            3:
+                task: convert_connected_app
+            4:
+                task: move_connected_app
+            5:
+                task: extract_consumer_key
+            6:
+                task: update_consumer_key
+            7:
+                task: deploy_litify_mdapi
+            8:
+                task: grant_connected_app
+            9:
+                task: assign_litify_permission_sets

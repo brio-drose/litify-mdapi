@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>sbarrett@gobrio.com</contactEmail>
+    <label>LitifyMDAPI</label>
+    <oauthConfig>
+        <callbackUrl>https://nosoftware-data-2205-dev-ed.scratch.my.salesforce.com/services/authcallback/LitifyMDAPI</callbackUrl>
+        <consumerKey>3MVG9mtnSJLqdj7BI1AanL.XXdQM4HxlbJQwknCLbufHbhxz4nVuz8hzuIJ3qt2Q5z__uxUXcQbhrMqD32dg2</consumerKey>
+        <isAdminApproved>true</isAdminApproved>
+        <isConsumerSecretOptional>false</isConsumerSecretOptional>
+        <isIntrospectAllTokens>false</isIntrospectAllTokens>
+        <isSecretRequiredForRefreshToken>true</isSecretRequiredForRefreshToken>
+        <scopes>Full</scopes>
+        <scopes>RefreshToken</scopes>
+    </oauthConfig>
+    <oauthPolicy>
+        <ipRelaxation>ENFORCE</ipRelaxation>
+        <refreshTokenPolicy>infinite</refreshTokenPolicy>
+    </oauthPolicy>
+</ConnectedApp>

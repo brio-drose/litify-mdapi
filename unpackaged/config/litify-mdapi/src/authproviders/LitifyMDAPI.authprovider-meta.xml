@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
+    <authorizeUrl>DOMAIN/services/oauth2/authorize</authorizeUrl>
+    <consumerKey>CONSUMER_KEY</consumerKey>
+    <consumerSecret>OTA4MjM0cmhzYmVma3VzZSFZYXlUZXN0ITkwODIzNHJoc2JlZmt1c2U=</consumerSecret>
+    <defaultScopes>full refresh_token offline_access</defaultScopes>
+    <friendlyName>LitifyMDAPI</friendlyName>
+    <includeOrgIdInIdentifier>true</includeOrgIdInIdentifier>
+    <providerType>Salesforce</providerType>
+    <sendAccessTokenInHeader>false</sendAccessTokenInHeader>
+    <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
+    <sendSecretInApis>true</sendSecretInApis>
+    <tokenUrl>DOMAIN/services/oauth2/token</tokenUrl>
+</AuthProvider>
