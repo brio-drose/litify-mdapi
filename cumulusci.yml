@@ -61,7 +61,7 @@ tasks:
         description: Extract a value from XML
         class_path: tasks.extract_value_from_xml.ExtractValueFromXML
         options:
-            xml_file_path: unpackaged/config/litify-mdapi/src/connectedApps/LitifyMDAPI.connectedApp-meta.xml
+            xml_file_path: unpackaged/config/litify-mdapi/src/connectedApps/LitifyMDAPI.connectedApp
             tag: consumerKey
 
     update_consumer_key:
