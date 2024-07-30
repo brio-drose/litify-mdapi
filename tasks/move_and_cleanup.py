@@ -11,6 +11,7 @@ class MoveAndCleanup(BaseTask):
         destination_path: Path = Field(..., description="The destination directory")
         cleanup_path: Path = Field(..., description="The directory to remove after moving")
         remove_cleanup: bool = Field(default=True, description="Whether to remove the cleanup directory after moving")
+        overwrite: bool = Field(default=True, description="Whether to overwrite the destination directory if it exists")
 
     parsed_options: Options
 
@@ -19,6 +20,11 @@ class MoveAndCleanup(BaseTask):
         destination_path = self.parsed_options.destination_path
         cleanup_path = self.parsed_options.cleanup_path
         remove_cleanup = self.parsed_options.remove_cleanup
+        overwrite = self.parsed_options.overwrite
+
+        if destination_path.exists() and overwrite:
+            shutil.rmtree(str(destination_path))
+            self.logger.info(f"Removed existing destination directory {destination_path}")
 
         # Move the directory
         shutil.move(str(source_path), str(destination_path))
