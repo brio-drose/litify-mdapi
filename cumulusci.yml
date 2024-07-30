@@ -95,6 +95,7 @@ tasks:
         description: POSTs json files to the Composite REST API endpoint.
         class_path: cumulusci.tasks.salesforce.composite.CompositeApi
         options:
+            namespaced: false # handled in the data_file
             data_files:
                 - "unpackaged/config/litify-mdapi/setupentityaccess.json"
 

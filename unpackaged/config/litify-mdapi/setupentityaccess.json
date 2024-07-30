@@ -3,12 +3,17 @@
     "compositeRequest": [
         {
             "method": "GET",
-            "url": "/services/data/v46.0/query/?q=SELECT+Id+FROM+PermissionSet+WHERE+Name+=+'%%%NAMESPACE%%%LitifyMDAPI'",
+            "url": "/services/data/v46.0/query/?q=SELECT+NamespacePrefix+FROM+Organization",
+            "referenceId": "orgNamespace"
+        },
+        {
+            "method": "GET",
+            "url": "/services/data/v46.0/query/?q=SELECT+Id+FROM+PermissionSet+WHERE+Name+=+'@{orgNamespace.records[0].NamespacePrefix}__LitifyMDAPI'",
             "referenceId": "permSet"
         },
         {
             "method": "GET",
-            "url": "/services/data/v46.0/query/?q=SELECT+Id+FROM+ConnectedApplication+WHERE+Name+=+'%%%NAMESPACE%%%LitifyMDAPI'",
+            "url": "/services/data/v46.0/query/?q=SELECT+Id+FROM+ConnectedApplication+WHERE+Name+=+'@{orgNamespace.records[0].NamespacePrefix}__LitifyMDAPI'",
             "referenceId": "conApp"
         },
         {
