@@ -53,7 +53,7 @@ tasks:
         class_path: tasks.move_and_cleanup.MoveAndCleanup
         options:
             source_path: unpackaged/config/litify-mdapi/temp/main/default/connectedApps
-            destination_path: unpackaged/config/litify-mdapi/src
+            destination_path: unpackaged/config/litify-mdapi/src/connectedApps
             cleanup_path: unpackaged/config/litify-mdapi/temp
             remove_cleanup: true 
 
