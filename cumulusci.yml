@@ -1,4 +1,4 @@
-minimum_cumulusci_version: '3.84.2'
+minimum_cumulusci_version: '3.90.0'
 project:
     name: Litify
     dependencies:
@@ -122,7 +122,7 @@ flows:
             3.1:
                 flow: configure_litify_mdapi
                 
-    configure_litify_mdapi:
+    configure_mdapi:
         description: Configure Litify MDAPI
         group: LitifyMDAPI
         steps:
