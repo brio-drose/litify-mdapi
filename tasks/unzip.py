@@ -9,7 +9,7 @@ class Unzip(BaseTask):
     class Options(CCIOptions):
         zip_path: Path = Field(..., description="The path to the zip file")
         extract_to: Path = Field(..., description="The directory to extract files to")
-        remove_zip: bool = Field(default=False, description="Whether to remove the zip file after extraction")
+        remove_zip: bool = Field(default=True, description="Whether to remove the zip file after extraction. Defaults to TRUE")
 
     parsed_options: Options
 
