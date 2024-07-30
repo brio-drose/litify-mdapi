@@ -50,25 +50,27 @@ tasks:
 
     move_connected_app:
         description: Move Converted Connected App to src directory
-        class_path: cumulusci.tasks.command.Command
-        group: LitifyMDAPI
+        class_path: tasks.move_and_cleanup.MoveAndCleanup
         options:
-            command: "mv unpackaged/config/litify-mdapi/temp/main/default/connectedApps unpackaged/config/litify-mdapi/src && rm -R unpackaged/config/litify-mdapi/temp"
+            source_path: unpackaged/config/litify-mdapi/temp/main/default/connectedApps
+            destination_path: unpackaged/config/litify-mdapi/src
+            cleanup_path: unpackaged/config/litify-mdapi/temp
+            remove_cleanup: true 
 
     extract_consumer_key:
-        description: Custom task to write Consumer Key to a env variable
-        class_path: tasks.extract_consumer_key.ExtractConsumerKeyAndSetEnv
-        group: "LitifyMDAPI"
+        description: Extract a value from XML
+        class_path: tasks.extract_value_from_xml.ExtractValueFromXML
         options:
-            mypath: "unpackaged/config/litify-mdapi/src/connectedApps/LitifyMDAPI.connectedApp-meta.xml"
+            xml_file_path: unpackaged/config/litify-mdapi/src/connectedApps/LitifyMDAPI.connectedApp-meta.xml
+            tag: consumerKey
 
     update_consumer_key:
-        description: Update Consumer Key
-        class_path: cumulusci.tasks.command.Command
-        group: LitifyMDAPI
+        description: Set an environment variable
+        class_path: tasks.set_env_var.SetEnvVar
         options:
-            command: "bash -c 'source unpackaged/config/litify-mdapi/scripts/update_consumer_key.sh'"
-    
+            env_var_name: CONSUMER_KEY 
+            value: ^^extract_consumer_key.extracted_value
+
     deploy_litify_mdapi:
         class_path: cumulusci.tasks.salesforce.Deploy
         options:
