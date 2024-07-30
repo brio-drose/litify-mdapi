@@ -34,11 +34,12 @@ tasks:
             command: "force:mdapi:retrieve -k unpackaged/config/litify-mdapi/package.xml -r unpackaged/config/litify-mdapi/temp --json --zipfilename connectedApp.zip"
 
     unzip_connected_app:
-        description: Unzip Connected App
-        class_path: cumulusci.tasks.command.Command
-        group: LitifyMDAPI
+        description: Unzip a file and optionally remove the zip file
+        class_path: tasks.unzip.Unzip
         options:
-            command: "unzip -o unpackaged/config/litify-mdapi/temp/connectedApp.zip -d unpackaged/config/litify-mdapi/temp && rm -R unpackaged/config/litify-mdapi/temp/connectedApp.zip"
+            zip_path: unpackaged/config/litify-mdapi/temp/connectedApp.zip
+            extract_to: unpackaged/config/litify-mdapi/temp
+            remove_zip: true
 
     convert_connected_app:
         description: Convert Connected App to source format
@@ -105,13 +106,6 @@ tasks:
     load_sample_data:
         options:
             drop_missing_schema: True
-    
-orgs:
-    scratch:
-        dev_namespaced:
-            config_file: orgs/dev.json
-            days: 30
-            namespaced: True
 
 ### Flows ######################################################################
 flows:
