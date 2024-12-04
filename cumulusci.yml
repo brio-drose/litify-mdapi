@@ -103,8 +103,8 @@ tasks:
         description: "Run the named_credential.robot script"
         class_path: cumulusci.tasks.robotframework.Robot                
         options:
-            suites: robot/eLaw/tests/edit_and_save_named_credential.robot
-            outputdir: robot/eLaw/results
+            suites: robot/Litify/tests/edit_and_save_named_credential.robot
+            outputdir: robot/Litify/results
 
     load_sample_data:
         options:
@@ -147,3 +147,5 @@ flows:
                 task: grant_connected_app
             9:
                 task: assign_litify_permission_sets
+            10:
+                task: edit_and_save_named_credential

@@ -2,7 +2,7 @@
 Resource        cumulusci/robotframework/Salesforce.robot
 Library         cumulusci.robotframework.PageObjects
 Library         Process
-Library  cumulusci.robotframework.CumulusCI  ${ORG}
+Library         cumulusci.robotframework.CumulusCI  ${ORG}
 Suite Setup     Run Keywords
 ...             Setup Test Data
 ...             Open Test Browser
@@ -14,87 +14,93 @@ Edit And Save Named Credential
     [Documentation]             Edit and save Named Credential so that it can
     ...                         update to status "Authenticated".
     Navigate To Named Credentials
-    Edit Named Credentials      ${credential}
+    Edit Named Credentials    
     Click Save
-    Login as User
+    Login as User       
+    Select Confirm
     Verify Authentication Status Is Authenticated
 
-
 *** Variables ***
-${credential} =                 //setup_platform_namedcredential-credential-table//a[text()='LitifyMDAPI']//parent::*
+${named_credential} =           //setup_platform_namedcredential-credential-table//a[text()='LitifyMDAPI']//parent::*
 ${edit_button} =                //input[@value='Edit']
 ${save_button} =                //input[@value='Save']
+${confirm_button} =             //input[@value='Confirm']
 ${username_field} =             //input[@id='username']
 ${password_field} =             //input[@id='password']
 ${login_button} =               //input[@id='Login']
-# Tokens
-${orginfo} =                    Get Org Info
-${ACCESS_TOKEN} =               will_be_replaced
+${iframe}                       //*[@id="setupComponent"]/div/div/div/force-aloha-page/div/iframe
+
 
 *** Keywords ***
 Setup Test Data
-    [Documentation]             Sets up all data required for test.
-    Get Salesforce Instance URL
-
-Get Salesforce Instance URL
-    [Documentation]
-    ...                         Get Salesforce Org Instance URL.
-    ...                         Sets as a Test Variable.
+    [Documentation]             Sets up all data required for test. Get Org Info.
+    
+    # Org Info
     ${org_info} =               Get Org Info
-    Log                         ${org_info}
-    ${instance_url} =           Get From Dictionary        ${org_info}
+    Set Suite Variable          ${ORG_INFO}                 ${org_info}
+    Log                         ${ORG_INFO}
+
+    # Instance URL
+    ${instance_url} =           Get From Dictionary        ${ORG_INFO}
     ...                         instance_url
-    ${instance_url} =           Set Suite Variable         ${instance_url}
+    Set Suite Variable          ${INSTANCE_URL}            ${instance_url}   
+    
 
 Navigate To Named Credentials
-    [Documentation]             Navigates to the Object Field History page.
-    ${history_url} =            Set Variable
-    ...                         ${instance_url}/lightning/setup/NamedCredential/home
-    Go To                       ${history_url}
+    [Documentation]             Navigates to the Named Credentials home page.
+    Go To                       ${INSTANCE_URL}/lightning/setup/NamedCredential/home
 
 Edit Named Credentials
     [Documentation]             Click on edit button for provided Named Credential.
-    [Arguments]                 ${named_credential}
     # iframe for Salesforce Classic setup pages
     Click Element               ${named_credential}
-    Select Frame                //*[@id="setupComponent"]/div/div/div/force-aloha-page/div/iframe
+    Select Frame                ${iframe}
     Click Element               ${edit_button}
-    Unselect Frame
-    Sleep                       15s
+    Unselect Frame  
+    Wait Until Page Contains Element
+    ...                         ${iframe}                  
+    Sleep                       15s        
 
 Click Save
     [Documentation]             Click Save Button on edit page.
+    Select Frame                ${iframe}
     Wait Until Page Contains Element
-    ...                         //*[@id="setupComponent"]/div/div/div/force-aloha-page/div/iframe
-    Select Frame                //*[@id="setupComponent"]/div/div/div/force-aloha-page/div/iframe
+    ...                         ${save_button}
+    Click Element               ${save_button}     
     Wait Until Page Contains Element
-    ...                         //*[@value="Save"]
-    Click Element               //*[@value="Save"]
-    Unselect Frame
-    Sleep                       15s
+    ...                         ${username_field}          timeout=15s
 
 Login as User
     [Documentation]             Enter User credentials and click Login Button on login page.
-    Wait Until Page Contains Element
-    ...                         ${username_field}
-    ${access_token} =           Get From Dictionary        ${org_info}
+    # Getting Access Token and storing variable
+    ${access_token} =           Get From Dictionary        ${ORG_INFO}
     ...                         access_token
-    ${access_token} =           Set Suite Variable         ${access_token}
-    breakpoint                  # Pause for manual inspection
+    Set Suite Variable          ${ACCESS_TOKEN}            ${access_token}
+    # This can be used to get username and password when running locally
+    # ${username}=                Get From Dictionary        ${ORG_INFO}    
+    # ...                         username
+    # ${password}=                Get From Dictionary        ${ORG_INFO}    
+    # ...                         password
+    # Setting Username and Password
     Input Text                  ${username_field}            ${USERNAME}
     Input Text                  ${password_field}            ${PASSWORD}
     Click Element               ${login_button}
-    Sleep                       15s
+    Wait Until Page Contains Element 
+    ...                         //input[@value='Confirm']
+    ...                         timeout=15s
+
+Select Confirm
+    [Documentation]             Click Confirm Button on Confirm External Access page.
+    Click Element               ${confirm_button}
+    Sleep                       15s     
+    Select Frame                ${iframe}   
+    Wait Until Page Contains Element
+    ...                         ${edit_button}                  
+    ...                         timeout=15s
 
 Verify Authentication Status Is Authenticated
     [Documentation]             Waits for Authenticaiton Status to load and then validates it's value
     ...                         is "Authenticated".
-    Wait Until Page Contains Element
-    ...                         //*[@id="setupComponent"]/div/div/div/force-aloha-page/div/iframe
-    Select Frame                //*[@id="setupComponent"]/div/div/div/force-aloha-page/div/iframe
-    Wait Until Page Contains Element
-    ...                         //*[contains(@id,"authStatusSection")]
-    SeleniumLibrary.Element Text Should Be
-    ...                         //*[contains(@id,"authStatusSection")]
-    ...                         Authenticated
-    Unselect Frame
+    Element Should Contain    //*[contains(@id,"authStatusSection")]    
+    ...                        Authenticated
+    Log                        Named Credential is Authenticated
