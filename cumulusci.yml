@@ -1,16 +1,16 @@
-minimum_cumulusci_version: '3.90.0'
+minimum_cumulusci_version: "3.90.0"
 project:
     name: Litify
     dependencies:
         - version_id: 04t1T0000003w1I
     package:
         name: Litify
-        api_version: '61.0'
+        api_version: "61.0"
     git:
-        default_branch: 'main'
-        prefix_feature: 'feature/'
-        prefix_beta: 'beta/'
-        prefix_release: 'release/'
+        default_branch: "main"
+        prefix_feature: "feature/"
+        prefix_beta: "beta/"
+        prefix_release: "release/"
     source_format: sfdx
 
 ### Tasks ######################################################################
@@ -25,7 +25,7 @@ tasks:
                       patterns:
                           - find: DOMAIN
                             inject_org_url: True
-    
+
     retrieve_connected_app:
         description: Retrieve Connected App
         class_path: cumulusci.tasks.sfdx.SFDXOrgTask
@@ -55,7 +55,7 @@ tasks:
             source_path: unpackaged/config/litify-mdapi/temp/main/default/connectedApps
             destination_path: unpackaged/config/litify-mdapi/src/connectedApps
             cleanup_path: unpackaged/config/litify-mdapi/temp
-            remove_cleanup: true 
+            remove_cleanup: true
 
     extract_consumer_key:
         description: Extract a value from XML
@@ -68,7 +68,7 @@ tasks:
         description: Set an environment variable
         class_path: tasks.set_env_var.SetEnvVar
         options:
-            env_var_name: CONSUMER_KEY 
+            env_var_name: CONSUMER_KEY
             value: ^^extract_consumer_key.extracted_value
 
     deploy_litify_mdapi:
@@ -89,7 +89,7 @@ tasks:
         group: "LitifyMDAPI"
         options:
             api_names: LitifyMDAPI
-    
+
     grant_connected_app:
         group: "LitifyMDAPI"
         description: POSTs json files to the Composite REST API endpoint.
@@ -101,10 +101,15 @@ tasks:
 
     edit_and_save_named_credential:
         description: "Run the named_credential.robot script"
-        class_path: cumulusci.tasks.robotframework.Robot                
+        class_path: cumulusci.tasks.robotframework.Robot
         options:
             suites: robot/Litify/tests/edit_and_save_named_credential.robot
             outputdir: robot/Litify/results
+            options:
+                vars:
+                    BROWSER: headlesschrome
+                    TIMEOUT: 180.0
+                exclude: unstable
 
     load_sample_data:
         options:
@@ -112,17 +117,16 @@ tasks:
 
 ### Flows ######################################################################
 flows:
-
     config_dev:
         steps:
             3.1:
                 flow: configure_litify_mdapi
-    
+
     config_apextest:
         steps:
             3.1:
                 flow: configure_litify_mdapi
-                
+
     configure_mdapi:
         description: Configure Litify MDAPI
         group: LitifyMDAPI
