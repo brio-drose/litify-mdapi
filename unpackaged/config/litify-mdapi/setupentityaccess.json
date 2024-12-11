@@ -12,7 +12,7 @@
             "referenceId": "conApp"
         },
         {
-            "method": "POST",
+            "method": "PATCH",
             "url": "/services/data/v46.0/sobjects/SetupEntityAccess",
             "referenceId": "setupEntityAccess",
             "body": {
