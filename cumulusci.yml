@@ -15,6 +15,10 @@ project:
 
 ### Tasks ######################################################################
 tasks:
+    install_chromedriver:
+        class_path: tasks.install_chromedriver.InstallChromeDriver
+        description: Installs the correct ChromeDriver version
+
     deploy_connected_app:
         class_path: cumulusci.tasks.salesforce.Deploy
         options:
@@ -105,11 +109,10 @@ tasks:
         options:
             suites: robot/Litify/tests/edit_and_save_named_credential.robot
             outputdir: robot/Litify/results
-            options:
-                vars:
-                    BROWSER: headlesschrome
-                    TIMEOUT: 180.0
-                exclude: unstable
+            vars:
+                BROWSER: headlesschrome
+                TIMEOUT: 180.0
+            exclude: unstable
 
     load_sample_data:
         options:
@@ -152,4 +155,6 @@ flows:
             9:
                 task: assign_litify_permission_sets
             10:
+                task: install_chromedriver
+            11:
                 task: edit_and_save_named_credential
