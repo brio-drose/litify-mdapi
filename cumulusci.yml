@@ -154,6 +154,5 @@ flows:
                 task: assign_litify_permission_sets
             10:
                 task: install_chromedriver
-                when: not env_var_true('GITHUB_ACTIONS')
             11:
                 task: edit_and_save_named_credential
