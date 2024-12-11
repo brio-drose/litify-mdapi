@@ -1,5 +1,5 @@
 {
-    "allOrNone": true,
+    "allOrNone": false,
     "compositeRequest": [
         {
             "method": "GET",
@@ -12,7 +12,7 @@
             "referenceId": "conApp"
         },
         {
-            "method": "PATCH",
+            "method": "POST",
             "url": "/services/data/v46.0/sobjects/SetupEntityAccess",
             "referenceId": "setupEntityAccess",
             "body": {
