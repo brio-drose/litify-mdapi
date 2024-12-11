@@ -29,22 +29,27 @@ ${username_field} =             //input[@id='username']
 ${password_field} =             //input[@id='password']
 ${login_button} =               //input[@id='Login']
 ${iframe}                       //*[@id="setupComponent"]/div/div/div/force-aloha-page/div/iframe
+${USERNAME}                     %{SALESFORCE_USERNAME}
+${PASSWORD}                     %{SALESFORCE_PASSWORD}
 
 
 *** Keywords ***
 Setup Test Data
     [Documentation]             Sets up all data required for test. Get Org Info.
     
-    # Org Info
+    # Get org info which includes credentials
     ${org_info} =               Get Org Info
     Set Suite Variable          ${ORG_INFO}                 ${org_info}
-    Log                         ${ORG_INFO}
-
-    # Instance URL
-    ${instance_url} =           Get From Dictionary        ${ORG_INFO}
-    ...                         instance_url
-    Set Suite Variable          ${INSTANCE_URL}            ${instance_url}   
     
+    # Get username/password from org info
+    ${username} =               Get From Dictionary         ${ORG_INFO}    username
+    ${password} =               Get From Dictionary         ${ORG_INFO}    password
+    Set Suite Variable          ${USERNAME}                ${username}
+    Set Suite Variable          ${PASSWORD}                ${password}
+
+    # Get instance URL
+    ${instance_url} =           Get From Dictionary         ${ORG_INFO}    instance_url
+    Set Suite Variable          ${INSTANCE_URL}            ${instance_url}
 
 Navigate To Named Credentials
     [Documentation]             Navigates to the Named Credentials home page.
