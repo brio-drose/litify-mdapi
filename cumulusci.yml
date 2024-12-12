@@ -154,3 +154,28 @@ flows:
                 task: assign_litify_permission_sets
             10:
                 task: edit_and_save_named_credential
+
+    configure_mdapi_no_auth:
+        description: Configure Litify MDAPI
+        group: LitifyMDAPI
+        steps:
+            1.1:
+                task: deploy_connected_app
+            1.2:
+                task: retrieve_connected_app
+            2:
+                task: unzip_connected_app
+            3:
+                task: convert_connected_app
+            4:
+                task: move_connected_app
+            5:
+                task: extract_consumer_key
+            6:
+                task: update_consumer_key
+            7:
+                task: deploy_litify_mdapi
+            8:
+                task: grant_connected_app
+            9:
+                task: assign_litify_permission_sets
