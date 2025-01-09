@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0.1 (Python 3.12.4 on win32)" generated="2025-01-09T18:46:47.228372" rpa="true" schemaversion="5">
+<suite id="s1" name="Edit And Save Named Credential" source="C:\VSCode\drose-brio\litify-mdapi\robot\Litify\tests\edit_and_save_named_credential.robot">
+<kw name="Run Keywords" owner="BuiltIn" type="SETUP">
+<kw name="Setup Test Data">
+<kw name="Get Org Info" owner="cumulusci.robotframework.CumulusCI">
+<msg time="2025-01-09T18:46:47.632394" level="INFO">${org_info} = {'config_file': 'orgs/dev.json', 'days': 7, 'set_password': True, 'scratch': True, 'namespaced': False, 'config_name': 'dev', 'sfdx_alias': 'Litify__dev', 'serialization_format': 'pickle', 'scratch_or...</msg>
+<var>${org_info}</var>
+<doc>Returns a dictionary of the org information for the current target
+Salesforce org</doc>
+<status status="PASS" start="2025-01-09T18:46:47.632394" elapsed="0.000000"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-01-09T18:46:47.632770" level="INFO">${ORG_INFO} = {'config_file': 'orgs/dev.json', 'days': 7, 'set_password': True, 'scratch': True, 'namespaced': False, 'config_name': 'dev', 'sfdx_alias': 'Litify__dev', 'serialization_format': 'pickle', 'scratch_or...</msg>
+<arg>${ORG_INFO}</arg>
+<arg>${org_info}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.632703" elapsed="0.000067"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-01-09T18:46:47.632770" level="INFO">${username} = test-b0kt7gzh5edk@example.com</msg>
+<var>${username}</var>
+<arg>${ORG_INFO}</arg>
+<arg>username</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.632770" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-01-09T18:46:47.633326" level="INFO">${password} = #mw3tNkgayduo</msg>
+<var>${password}</var>
+<arg>${ORG_INFO}</arg>
+<arg>password</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.632770" elapsed="0.000556"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-01-09T18:46:47.633326" level="INFO">${USERNAME} = test-b0kt7gzh5edk@example.com</msg>
+<arg>${USERNAME}</arg>
+<arg>${username}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.633326" elapsed="0.000000"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-01-09T18:46:47.633326" level="INFO">${PASSWORD} = #mw3tNkgayduo</msg>
+<arg>${PASSWORD}</arg>
+<arg>${password}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.633326" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-01-09T18:46:47.633326" level="INFO">${instance_url} = https://connect-speed-4486-dev-ed.scratch.my.salesforce.com</msg>
+<var>${instance_url}</var>
+<arg>${ORG_INFO}</arg>
+<arg>instance_url</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.633326" elapsed="0.000000"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-01-09T18:46:47.633326" level="INFO">${INSTANCE_URL} = https://connect-speed-4486-dev-ed.scratch.my.salesforce.com</msg>
+<arg>${INSTANCE_URL}</arg>
+<arg>${instance_url}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.633326" elapsed="0.000000"/>
+</kw>
+<doc>Sets up all data required for test. Get Org Info.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.632044" elapsed="0.001282"/>
+</kw>
+<kw name="Open Test Browser" owner="Salesforce">
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Login Url" owner="cumulusci.robotframework.CumulusCI">
+<doc>Returns the login url which will automatically log into the target
+Salesforce org.  By default, the org_name passed to the library
+constructor is used but this can be overridden with the org option
+to log into a different org.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.634393" elapsed="0.000000"/>
+</kw>
+<msg time="2025-01-09T18:46:47.634393" level="INFO">${login_url} = https://connect-speed-4486-dev-ed.scratch.my.salesforce.com/secur/frontdoor.jsp?sid=00DEc00000FV0Ks!AQEAQHXU4zWzrtxjMGc2sLRZfGmbFV7wVy0MFgCjH2X1B7UT8S27mPP47tqNQaez87U1KgeXJA_IS2y8.wf9sgnUKcMa7cyb</msg>
+<var>${login_url}</var>
+<arg>$useralias</arg>
+<arg>Login URL</arg>
+<arg>alias=${useralias}</arg>
+<arg>ELSE</arg>
+<arg>Login URL</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.634393" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Open Test Browser Chrome" owner="Salesforce">
+<kw name="Get Chrome Options" owner="Salesforce">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-01-09T18:46:47.635474" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x0000028B4A342EA0&gt;</msg>
+<var>${options}</var>
+<arg>selenium.webdriver.ChromeOptions()</arg>
+<arg>modules=selenium</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Chrome Set Headless" owner="Salesforce">
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>set_headless</arg>
+<arg>${true}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="0.000000"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="0.000000"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-background-timer-throttling</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${options}</value>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="0.000000"/>
+</return>
+<arg>${options}</arg>
+<doc>This keyword is used to set the chrome options dictionary values
+required to run headless chrome.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="0.000000"/>
+</kw>
+<arg>'${BROWSER}' == 'headlesschrome'</arg>
+<arg>Chrome Set Headless</arg>
+<arg>${options}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${CHROME_BINARY}' != '${empty}'</arg>
+<arg>Chrome Set Binary</arg>
+<arg>${options}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="0.000000"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${options}</value>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="0.000000"/>
+</return>
+<msg time="2025-01-09T18:46:47.635474" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x0000028B4A342EA0&gt;</msg>
+<var>${options}</var>
+<doc>Returns a dictionary of chrome options, for use by the keyword `Open Test Browser`.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="0.000000"/>
+</kw>
+<kw name="Create Webdriver With Retry" owner="cumulusci.robotframework.Salesforce">
+<msg time="2025-01-09T18:46:47.638514" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<arg>alias=${alias}</arg>
+<doc>Call the Create Webdriver keyword.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="2.303220"/>
+</kw>
+<kw name="Set Selenium Implicit Wait" owner="SeleniumLibrary">
+<arg>${IMPLICIT_WAIT}</arg>
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<status status="PASS" start="2025-01-09T18:46:49.939702" elapsed="0.001008"/>
+</kw>
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>${TIMEOUT}</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2025-01-09T18:46:49.940710" elapsed="0.001005"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:46:49.943031" level="INFO">Opening url 'https://connect-speed-4486-dev-ed.scratch.my.salesforce.com/secur/frontdoor.jsp?sid=00DEc00000FV0Ks!AQEAQHXU4zWzrtxjMGc2sLRZfGmbFV7wVy0MFgCjH2X1B7UT8S27mPP47tqNQaez87U1KgeXJA_IS2y8.wf9sgnUKcMa7cyb'</msg>
+<arg>${login_url}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-01-09T18:46:49.942719" elapsed="1.085361"/>
+</kw>
+<arg>${login_url}</arg>
+<arg>alias=${alias}</arg>
+<doc>Opens a Chrome browser window and navigates to the org
+This keyword isn't normally called directly by a test. It is used
+by the `Open Test Browser` keyword.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.635474" elapsed="3.392606"/>
+</kw>
+<arg>'${BROWSER}' == 'chrome'</arg>
+<arg>Open Test Browser Chrome</arg>
+<arg>${login_url}</arg>
+<arg>alias=${alias}</arg>
+<arg>ELSE IF</arg>
+<arg>'${BROWSER}' == 'firefox'</arg>
+<arg>Open Test Browser Firefox</arg>
+<arg>${login_url}</arg>
+<arg>alias=${alias}</arg>
+<arg>ELSE IF</arg>
+<arg>'${BROWSER}' == 'headlesschrome'</arg>
+<arg>Open Test Browser Chrome</arg>
+<arg>${login_url}</arg>
+<arg>alias=${alias}</arg>
+<arg>ELSE IF</arg>
+<arg>'${BROWSER}' == 'headlessfirefox'</arg>
+<arg>Open Test Browser Headless Firefox</arg>
+<arg>${login_url}</arg>
+<arg>alias=${alias}</arg>
+<arg>ELSE</arg>
+<arg>Open Browser</arg>
+<arg>${login_url}</arg>
+<arg>${BROWSER}</arg>
+<arg>alias=${alias}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.634393" elapsed="3.393687"/>
+</kw>
+<kw name="Convert To Boolean" owner="BuiltIn">
+<msg time="2025-01-09T18:46:51.028080" level="INFO">${should_wait} = True</msg>
+<var>${should_wait}</var>
+<arg>${wait}</arg>
+<doc>Converts the given item to Boolean true or false.</doc>
+<status status="PASS" start="2025-01-09T18:46:51.028080" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Wait Until Salesforce Is Ready" owner="cumulusci.robotframework.Salesforce">
+<arg>timeout=180</arg>
+<doc>Waits until we are able to render the initial salesforce landing page</doc>
+<status status="PASS" start="2025-01-09T18:46:51.029080" elapsed="3.864612"/>
+</kw>
+<arg>$should_wait</arg>
+<arg>Wait Until Salesforce Is Ready</arg>
+<arg>timeout=180</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-01-09T18:46:51.029080" elapsed="3.864612"/>
+</kw>
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>${TIMEOUT}</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2025-01-09T18:46:54.893692" elapsed="0.001017"/>
+</kw>
+<kw name="Initialize Location Strategies" owner="cumulusci.robotframework.Salesforce">
+<msg time="2025-01-09T18:46:54.899709" level="INFO">${LOCATION STRATEGIES INITIALIZED} = True</msg>
+<doc>Initialize the Salesforce custom location strategies</doc>
+<status status="PASS" start="2025-01-09T18:46:54.894709" elapsed="0.005000"/>
+</kw>
+<kw name="Split String" owner="String">
+<msg time="2025-01-09T18:46:54.899709" level="INFO">${width} = 1280</msg>
+<msg time="2025-01-09T18:46:54.899709" level="INFO">${height} = 1024</msg>
+<var>${width}</var>
+<var>${height}</var>
+<arg>${size}</arg>
+<arg>separator=x</arg>
+<arg>max_split=1</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="PASS" start="2025-01-09T18:46:54.899709" elapsed="0.000000"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>${width}</arg>
+<arg>${height}</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2025-01-09T18:46:54.899709" elapsed="0.021136"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${SELENIUM_SPEED}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2025-01-09T18:46:54.920845" elapsed="0.000000"/>
+</kw>
+<kw name="Log Browser Capabilities" owner="cumulusci.robotframework.Salesforce">
+<msg time="2025-01-09T18:46:54.921878" level="INFO">selenium browser capabilities:
+{   'acceptInsecureCerts': False,
+    'browserName': 'chrome',
+    'browserVersion': '131.0.6778.265',
+    'chrome': {   'chromedriverVersion': '131.0.6778.264 '
+                                         '(2d05e31515360f4da764174f7c448b33e36da871-refs/branch-heads/6778@{#4323})',
+                  'userDataDir': 'C:\\Users\\DAVIDR~1\\AppData\\Local\\Temp\\scoped_dir99968_2133055517'},
+    'fedcm:accounts': True,
+    'goog:chromeOptions': {'debuggerAddress': 'localhost:49845'},
+    'networkConnectionEnabled': False,
+    'pageLoadStrategy': 'normal',
+    'platformName': 'windows',
+    'proxy': {},
+    'setWindowRect': True,
+    'strictFileInteractability': False,
+    'timeouts': {'implicit': 0, 'pageLoad': 300000, 'script': 30000},
+    'unhandledPromptBehavior': 'dismiss and notify',
+    'webauthn:extension:credBlob': True,
+    'webauthn:extension:largeBlob': True,
+    'webauthn:extension:minPinLength': True,
+    'webauthn:extension:prf': True,
+    'webauthn:virtualAuthenticators': True}</msg>
+<doc>Logs all of the browser capabilities as reported by selenium</doc>
+<status status="PASS" start="2025-01-09T18:46:54.921878" elapsed="0.000000"/>
+</kw>
+<doc>Opens a test browser to the org.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.634393" elapsed="7.287485"/>
+</kw>
+<arg>Setup Test Data</arg>
+<arg>Open Test Browser</arg>
+<doc>Executes all the given keywords in a sequence.</doc>
+<status status="PASS" start="2025-01-09T18:46:47.631734" elapsed="7.290144"/>
+</kw>
+<test id="s1-t1" name="Edit And Save Named Credential" line="13">
+<kw name="Navigate To Named Credentials">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:46:54.923402" level="INFO">Opening url 'https://connect-speed-4486-dev-ed.scratch.my.salesforce.com/lightning/setup/NamedCredential/home'</msg>
+<arg>${INSTANCE_URL}/lightning/setup/NamedCredential/home</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-01-09T18:46:54.923402" elapsed="0.982847"/>
+</kw>
+<doc>Navigates to the Named Credentials home page.</doc>
+<status status="PASS" start="2025-01-09T18:46:54.923230" elapsed="0.983019"/>
+</kw>
+<kw name="Edit Named Credentials">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:46:55.908134" level="INFO">Clicking element '//setup_platform_namedcredential-credential-table//a[text()='LitifyMDAPI']//parent::*'.</msg>
+<arg>${named_credential}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-01-09T18:46:55.908134" elapsed="1.638604"/>
+</kw>
+<kw name="Select Frame" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:46:57.547741" level="INFO">Selecting frame '//*[@id="setupComponent"]/div/div/div/force-aloha-page/div/iframe'.</msg>
+<arg>${iframe}</arg>
+<doc>Sets frame identified by ``locator`` as the current frame.</doc>
+<status status="PASS" start="2025-01-09T18:46:57.546738" elapsed="2.186184"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:46:59.732922" level="INFO">Clicking element '//input[@value='Edit']'.</msg>
+<arg>${edit_button}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-01-09T18:46:59.732922" elapsed="0.235923"/>
+</kw>
+<kw name="Unselect Frame" owner="SeleniumLibrary">
+<doc>Sets the main frame as the current frame.</doc>
+<status status="PASS" start="2025-01-09T18:46:59.968845" elapsed="0.003001"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${iframe}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-01-09T18:46:59.972922" elapsed="0.011006"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-01-09T18:47:14.985528" level="INFO">Slept 15 seconds.</msg>
+<arg>15s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-01-09T18:46:59.983928" elapsed="15.001600"/>
+</kw>
+<doc>Click on edit button for provided Named Credential.</doc>
+<status status="PASS" start="2025-01-09T18:46:55.907392" elapsed="19.078136"/>
+</kw>
+<kw name="Click Save">
+<kw name="Select Frame" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:47:14.985528" level="INFO">Selecting frame '//*[@id="setupComponent"]/div/div/div/force-aloha-page/div/iframe'.</msg>
+<arg>${iframe}</arg>
+<doc>Sets frame identified by ``locator`` as the current frame.</doc>
+<status status="PASS" start="2025-01-09T18:47:14.985528" elapsed="0.042960"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${save_button}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-01-09T18:47:15.028488" elapsed="0.014417"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:47:15.044008" level="INFO">Clicking element '//input[@value='Save']'.</msg>
+<arg>${save_button}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-01-09T18:47:15.042905" elapsed="1.488358"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${username_field}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-01-09T18:47:16.531263" elapsed="0.016702"/>
+</kw>
+<doc>Click Save Button on edit page.</doc>
+<status status="PASS" start="2025-01-09T18:47:14.985528" elapsed="1.562437"/>
+</kw>
+<kw name="Login as User">
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-01-09T18:47:16.549583" level="INFO">${access_token} = 00DEc00000FV0Ks!AQEAQHXU4zWzrtxjMGc2sLRZfGmbFV7wVy0MFgCjH2X1B7UT8S27mPP47tqNQaez87U1KgeXJA_IS2y8.wf9sgnUKcMa7cyb</msg>
+<var>${access_token}</var>
+<arg>${ORG_INFO}</arg>
+<arg>access_token</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-01-09T18:47:16.548966" elapsed="0.000617"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-01-09T18:47:16.549583" level="INFO">${ACCESS_TOKEN} = 00DEc00000FV0Ks!AQEAQHXU4zWzrtxjMGc2sLRZfGmbFV7wVy0MFgCjH2X1B7UT8S27mPP47tqNQaez87U1KgeXJA_IS2y8.wf9sgnUKcMa7cyb</msg>
+<arg>${ACCESS_TOKEN}</arg>
+<arg>${access_token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-01-09T18:47:16.549583" elapsed="0.000000"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:47:16.549583" level="INFO">Typing text 'test-b0kt7gzh5edk@example.com' into text field '//input[@id='username']'.</msg>
+<arg>${username_field}</arg>
+<arg>${USERNAME}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-01-09T18:47:16.549583" elapsed="0.153811"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:47:16.703394" level="INFO">Typing text '#mw3tNkgayduo' into text field '//input[@id='password']'.</msg>
+<arg>${password_field}</arg>
+<arg>${PASSWORD}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-01-09T18:47:16.703394" elapsed="0.104835"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:47:16.808488" level="INFO">Clicking element '//input[@id='Login']'.</msg>
+<arg>${login_button}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-01-09T18:47:16.808488" elapsed="3.483272"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>//input[@value='Confirm']</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-01-09T18:47:20.291760" elapsed="0.013512"/>
+</kw>
+<doc>Enter User credentials and click Login Button on login page.</doc>
+<status status="PASS" start="2025-01-09T18:47:16.548966" elapsed="3.756306"/>
+</kw>
+<kw name="Select Confirm">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:47:20.306633" level="INFO">Clicking element '//input[@value='Confirm']'.</msg>
+<arg>${confirm_button}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-01-09T18:47:20.306633" elapsed="1.337338"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-01-09T18:47:36.645141" level="INFO">Slept 15 seconds.</msg>
+<arg>15s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-01-09T18:47:21.644971" elapsed="15.000170"/>
+</kw>
+<kw name="Select Frame" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:47:36.645645" level="INFO">Selecting frame '//*[@id="setupComponent"]/div/div/div/force-aloha-page/div/iframe'.</msg>
+<arg>${iframe}</arg>
+<doc>Sets frame identified by ``locator`` as the current frame.</doc>
+<status status="PASS" start="2025-01-09T18:47:36.645141" elapsed="0.041359"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${edit_button}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-01-09T18:47:36.687516" elapsed="0.013750"/>
+</kw>
+<doc>Click Confirm Button on Confirm External Access page.</doc>
+<status status="PASS" start="2025-01-09T18:47:20.306633" elapsed="16.394633"/>
+</kw>
+<kw name="Verify Authentication Status Is Authenticated">
+<kw name="Element Should Contain" owner="SeleniumLibrary">
+<msg time="2025-01-09T18:47:36.725625" level="INFO">Element '//*[contains(@id,"authStatusSection")]' contains text 'Authenticated'.</msg>
+<arg>//*[contains(@id,"authStatusSection")]</arg>
+<arg>Authenticated</arg>
+<doc>Verifies that element ``locator`` contains text ``expected``.</doc>
+<status status="PASS" start="2025-01-09T18:47:36.702265" elapsed="0.023360"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-01-09T18:47:36.726625" level="INFO">Named Credential is Authenticated</msg>
+<arg>Named Credential is Authenticated</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-01-09T18:47:36.726625" elapsed="0.000000"/>
+</kw>
+<doc>Waits for Authenticaiton Status to load and then validates it's value
+is "Authenticated".</doc>
+<status status="PASS" start="2025-01-09T18:47:36.702265" elapsed="0.024360"/>
+</kw>
+<doc>Edit and save Named Credential so that it can
+update to status "Authenticated".</doc>
+<status status="PASS" start="2025-01-09T18:46:54.921878" elapsed="41.804747"/>
+</test>
+<kw name="Delete Records and Close Browser" owner="Salesforce" type="TEARDOWN">
+<kw name="Close All Browsers" owner="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2025-01-09T18:47:36.729448" elapsed="3.191066"/>
+</kw>
+<kw name="Delete Session Records" owner="cumulusci.robotframework.SalesforceAPI">
+<msg time="2025-01-09T18:47:39.920514" level="INFO">Deleting 0 records</msg>
+<doc>Deletes records that were created while running this test case.</doc>
+<status status="PASS" start="2025-01-09T18:47:39.920514" elapsed="0.000000"/>
+</kw>
+<doc>This will close all open browser windows and then delete
+all records that were created with the Salesforce API during
+this testing session.</doc>
+<status status="PASS" start="2025-01-09T18:47:36.729448" elapsed="3.191066"/>
+</kw>
+<status status="PASS" start="2025-01-09T18:46:47.228372" elapsed="52.692142"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Edit And Save Named Credential">Edit And Save Named Credential</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-01-09T18:46:47.244138" level="WARN">Error in file 'C:\Users\DavidRose\pipx\venvs\cumulusci\Lib\site-packages\cumulusci\robotframework\Salesforce.robot' on line 62: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-01-09T18:46:47.244138" level="WARN">Error in file 'C:\Users\DavidRose\pipx\venvs\cumulusci\Lib\site-packages\cumulusci\robotframework\Salesforce.robot' on line 75: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-01-09T18:46:47.247843" level="WARN">Error in file 'C:\Users\DavidRose\pipx\venvs\cumulusci\Lib\site-packages\cumulusci\robotframework\Salesforce.robot' on line 168: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-01-09T18:46:47.249360" level="WARN">Error in file 'C:\Users\DavidRose\pipx\venvs\cumulusci\Lib\site-packages\cumulusci\robotframework\Salesforce.robot' on line 179: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-01-09T18:46:47.249360" level="WARN">Error in file 'C:\Users\DavidRose\pipx\venvs\cumulusci\Lib\site-packages\cumulusci\robotframework\Salesforce.robot' on line 192: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-01-09T18:46:47.605410" level="WARN">Locators for api 62 not found. Falling back to locators_57 for salesforce locators</msg>
+</errors>
+</robot>

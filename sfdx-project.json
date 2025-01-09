@@ -3,15 +3,9 @@
         {
             "path": "force-app",
             "default": true,
-            "package": "eLaw",
-            "postInstallScript": "ELawPostInstall",
             "versionName": "0.1.2",
             "versionNumber": "1.0.0.NEXT"
         }
     ],
-    "namespace": "lexitas",
-    "sourceApiVersion": "60.0",
-    "packageAliases": {
-        "eLaw": "0HoJx0000000085KAA"
-    }
+    "sourceApiVersion": "60.0"
 }
