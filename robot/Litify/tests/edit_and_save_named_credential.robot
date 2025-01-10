@@ -29,6 +29,8 @@ ${username_field} =             //input[@id='username']
 ${password_field} =             //input[@id='password']
 ${login_button} =               //input[@id='Login']
 ${iframe}                       //*[@id="setupComponent"]/div/div/div/force-aloha-page/div/iframe
+${USERNAME}                 ${EMPTY}
+${PASSWORD}                 ${EMPTY}
 #${USERNAME}                     %{SALESFORCE_USERNAME}
 #${PASSWORD}                     %{SALESFORCE_PASSWORD}
 
@@ -45,7 +47,10 @@ Setup Test Data
     ${username} =               Get From Dictionary         ${ORG_INFO}    username
     ${password} =               Get From Dictionary         ${ORG_INFO}    password
     Set Suite Variable          ${USERNAME}                ${username}
+    Log  message="username:${USERNAME}" level="INFO"
+
     Set Suite Variable          ${PASSWORD}                ${password}
+    Log  message="passowrd:${PASSWORD}" level="INFO"
 
     # Get instance URL
     ${instance_url} =           Get From Dictionary         ${ORG_INFO}    instance_url
