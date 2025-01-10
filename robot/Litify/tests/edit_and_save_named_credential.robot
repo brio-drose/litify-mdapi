@@ -31,6 +31,8 @@ ${login_button} =               //input[@id='Login']
 ${iframe}                       //*[@id="setupComponent"]/div/div/div/force-aloha-page/div/iframe
 ${USERNAME}                 ${EMPTY}
 ${PASSWORD}                 ${EMPTY}
+${username}                 ${EMPTY}
+${password}                 ${EMPTY}
 #${USERNAME}                     %{SALESFORCE_USERNAME}
 #${PASSWORD}                     %{SALESFORCE_PASSWORD}
 
