@@ -1,4 +1,4 @@
-# eLaw
+# Litify MDAPI
 
 ## The following sections assume the following prerequisites have already been satisfied:
 - You have already [set up CumulusCI](https://cumulusci.readthedocs.io/en/latest/tutorial.html) on your device.
